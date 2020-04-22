@@ -1,4 +1,5 @@
 const reddit = `https://www.reddit.com/r/hiphopheads.json`;
+const proxy = 'https://cors-anywhere.herokuapp.com/';
 let spotify = `https://api.spotify.com/v1/search`;
 const auth = {
   headers: {
@@ -76,19 +77,29 @@ function trackNameFromTitle(title) {
 
 //finds song in spotify, add it to page
 function addToSongs(track, artist) {
-  spotify = `https://api.spotify.com/v1/search?q=${track}%20${artist}&type=track`;
+  spotify = `${proxy}https://api.spotify.com/v1/search?q=${track}%20${artist}&type=track`;
   fetch(spotify, auth)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
       console.log(data);
+      let uri;
       let results = data.tracks.items;
       if (results.length == 0) {
         return;
       } else {
-        let uri = data.tracks.items[0].uri;
+        uri = data.tracks.items[0].uri;
       }
-      song;
+      uri = uri.replace('spotify:track:', '');
+      console.log(uri);
+      let songPlayer = document.createElement('iframe');
+      songPlayer.src = `https://open.spotify.com/embed/track/${uri}`;
+      songPlayer.width = '300';
+      songPlayer.height = '380';
+      songPlayer.frameBorder = '0';
+      songPlayer.allowtransparency = 'true';
+      songPlayer.allow = 'encrypted-media';
+      songList.appendChild(songPlayer);
     });
 }
