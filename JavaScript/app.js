@@ -18,23 +18,49 @@ fetch(reddit)
     }
     for (let i = 0; i < posts.length; i++) {
       if (postTitles[i].substring(0, 7) == '[FRESH]') {
-        console.log(postTitles[i]);
+        console.log('Reddit Post: ' + postTitles[i]);
         let artist = artistFromTitle(postTitles[i]);
-        console.log(artist);
+        console.log('Artist: ' + artist);
+        let trackName = trackNameFromTitle(postTitles[i]);
+        console.log('Name of Track: ' + trackName);
         addToSongs();
       }
     }
   });
 
-//takes in title of reddit post and converts it so we can add it to spotify link to search
+//get name of artist from reddit post
 function artistFromTitle(title) {
   let artist;
   let string = title.substring(7, title.length);
   artist = string.replace('-', 'DELETETHIS');
   let index = artist.search('DELETETHIS');
   artist = artist.substring(0, index);
-  //artist = artist.replace('DELETETHIS', '');
+  artist = artist.replace(' ', '');
+  if (!artist) {
+    string = title.substring(9, title.length);
+    artist = string.replace('-', 'DELETETHIS');
+    let index = artist.search('DELETETHIS');
+    artist = artist.substring(0, index);
+    artist = artist.replace(' ', '');
+  }
   return artist;
+}
+
+//get name of song from reddit post and convert it to spotify readable title
+function trackNameFromTitle(title) {
+  let trackName;
+  let string = title.replace('-', 'DELETETHIS');
+  let index = string.search('DELETETHIS');
+  trackName = title.substring(index + 1, title.length);
+  if (trackName.search('-') != -1) {
+    trackName = '';
+    let string2 = title.substring(9, title.length);
+    string2 = string2.replace('-', 'DDD');
+    console.log(string2);
+    let index2 = string2.search('DDD');
+    trackName = string2.substring(index2 + 3, string2.length);
+  }
+  return trackName;
 }
 
 //finds song in spotify, add it to page
