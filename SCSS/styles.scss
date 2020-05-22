@@ -21,11 +21,14 @@ body {
     color: white;
     margin: 2.5rem 0rem;
   }
+  .song-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
 .song-container {
   border: white 2px solid;
-  width: 75%;
-  height: 50%;
   margin: 2.5rem auto;
 }

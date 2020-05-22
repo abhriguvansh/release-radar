@@ -30,10 +30,21 @@ body h2 {
   margin: 2.5rem 0rem;
 }
 
+body .song-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .song-container {
   border: white 2px solid;
-  width: 75%;
-  height: 50%;
   margin: 2.5rem auto;
 }
 /*# sourceMappingURL=styles.css.map */
