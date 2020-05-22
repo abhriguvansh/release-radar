@@ -102,6 +102,10 @@ function addToSongs(track, artist) {
   $.ajax({
     url: `${proxy}https://api.spotify.com/v1/search?q=${track}%20${artist}&type=track`,
     type: 'GET',
+    headers: {
+      'Retry-After': 4,
+      'x-requested-with': 'XMLHttpRequest',
+    },
     beforeSend: function (xhr) {
       xhr.setRequestHeader('Authorization', 'Bearer ' + _token);
     },
